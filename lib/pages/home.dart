@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -7,38 +9,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = new AnimationController(
-        duration: const Duration(milliseconds: 5000),
-        vsync: this,
-        animationBehavior: AnimationBehavior.preserve);
-    animation = Tween(begin: 80.0, end: 430.0).animate(controller)
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          controller.reset();
-          controller.forward();
-        }
-      });
-
-    controller.forward();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose(); // 释放资源
-    super.dispose();
-  }
-
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,15 +22,10 @@ class _MyHomePageState extends State<MyHomePage>
               child: Stack(
                 children: <Widget>[
                   Center(
-                    child: Container(
-                      width: animation.value,
-                      height: animation.value,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border:
-                              Border.all(width: 1, color: Colors.redAccent)),
-                      child: null,
-                    ),
+                    child: AnimatedCircle(),
+                  ),
+                  Center(
+                    child: AnimatedCircle(delay: 2500),
                   ),
                   Center(
                     // 裁剪圆形
@@ -130,5 +96,64 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );
+  }
+}
+
+// 封装动画组件
+class AnimatedCircle extends StatefulWidget {
+  final int delay;
+
+  AnimatedCircle({Key key, this.delay = 0}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _AnimatedCircle();
+}
+
+class _AnimatedCircle extends State<AnimatedCircle>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
+  final int animateDuration = 5000;
+  final double startScale = 30.0;
+  final double endScale = 450.0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new AnimationController(
+        duration: Duration(milliseconds: animateDuration), vsync: this);
+    animation = Tween(begin: startScale, end: endScale).animate(controller);
+    if (widget.delay != 0) {
+      Timer(Duration(milliseconds: widget.delay), () {
+        controller.repeat();
+      });
+    } else {
+      controller.repeat();
+    }
+    // controller.repeat();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print(animation.value);
+    return AnimatedBuilder(
+      animation: animation,
+      child: null,
+      builder: (BuildContext context, child) {
+        return Container(
+            width: animation.value,
+            height: animation.value,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: Colors.white)),
+            child: child);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
