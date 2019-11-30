@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_music/pages/home/animate_circle.dart';
 import 'package:flutter_netease_music/pages/home/icon_circle.dart';
+import 'package:flutter_netease_music/pages/home/radio_select.dart';
+import 'package:toast/toast.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -10,14 +12,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  bool _agreement = false;
+
+  void handlePhoneLogin() {
+    if (!_agreement) {
+      return showWarning();
+    }
+  }
+
+  void showWarning() {
+    Toast.show("请先勾选《服务条款》\n《隐私政策》《儿童隐私政策》", context,
+        duration: Toast.LENGTH_LONG,
+        gravity: Toast.CENTER,
+        backgroundRadius: 10);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final TextStyle textStyle = TextStyle(color: Colors.white60, fontSize: 12);
+    final TextStyle textStyle2 =
+        textStyle.merge(TextStyle(color: Colors.white));
+    return Scaffold(
+        body: Container(
       color: Colors.red,
       child: Column(
         children: <Widget>[
           Container(
-            height: 500,
+            height: 600,
             child: Center(
               child: Stack(
                 children: <Widget>[
@@ -52,7 +73,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: RaisedButton(
                           textColor: Colors.red,
                           color: Colors.white,
-                          onPressed: () => print('手机登录'),
+                          onPressed: () {
+                            handlePhoneLogin();
+                          },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
                           child: ClipRRect(
@@ -60,7 +83,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             child: Container(
                                 width: 300,
                                 child: Center(
-                                  child: Text('手机登录'),
+                                  child: Text('手机号登录'),
                                 )),
                           )),
                     )
@@ -91,7 +114,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -100,11 +123,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(right: 4),
+                      child: RadioSelect(
+                        onChanged: (val) {
+                          setState(() {
+                            _agreement = !_agreement;
+                          });
+                        },
+                        value: _agreement,
+                      ),
+                    ),
+                    Text('同意', style: textStyle),
+                    Text('《服务条款》', style: textStyle2),
+                    Text('《隐私政策》', style: textStyle2),
+                    Text('《儿童隐私政策》', style: textStyle2),
+                  ],
+                ),
               ],
             ),
           )
         ],
       ),
-    );
+    ));
   }
 }
