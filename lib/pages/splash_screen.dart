@@ -8,7 +8,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var counter = 5;
+  var counter = 3;
   Timer timer;
 
   void countDown() {

@@ -1,15 +1,15 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_netease_music/pages/home/animate_circle.dart';
+import 'package:flutter_netease_music/pages/home/icon_circle.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   Center(
                     // 裁剪圆形
                     child: ClipOval(
-                      child: new Image.asset(
+                      child: Image.asset(
                         'assets/images/logo.png',
                         fit: BoxFit.cover,
                         width: 80,
@@ -89,71 +89,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           )),
                     )
                   ],
-                )
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      IconCircle(path: 'assets/images/weixin.svg'),
+                      IconCircle(path: 'assets/images/qq.svg'),
+                    ],
+                  ),
+                ),
               ],
             ),
           )
         ],
       ),
     );
-  }
-}
-
-// 封装动画组件
-class AnimatedCircle extends StatefulWidget {
-  final int delay;
-
-  AnimatedCircle({Key key, this.delay = 0}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _AnimatedCircle();
-}
-
-class _AnimatedCircle extends State<AnimatedCircle>
-    with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
-  final int animateDuration = 5000;
-  final double startScale = 30.0;
-  final double endScale = 450.0;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = new AnimationController(
-        duration: Duration(milliseconds: animateDuration), vsync: this);
-    animation = Tween(begin: startScale, end: endScale).animate(controller);
-    if (widget.delay != 0) {
-      Timer(Duration(milliseconds: widget.delay), () {
-        controller.repeat();
-      });
-    } else {
-      controller.repeat();
-    }
-    // controller.repeat();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print(animation.value);
-    return AnimatedBuilder(
-      animation: animation,
-      child: null,
-      builder: (BuildContext context, child) {
-        return Container(
-            width: animation.value,
-            height: animation.value,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(width: 1, color: Colors.white)),
-            child: child);
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }
