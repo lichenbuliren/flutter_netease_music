@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: AnimatedCircle(),
                   ),
                   Center(
-                    child: AnimatedCircle(delay: 2500),
+                    child: AnimatedCircle(delay: 2000),
                   ),
                   Center(
                     // 裁剪圆形

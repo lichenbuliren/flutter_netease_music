@@ -16,7 +16,7 @@ class IconCircle extends StatelessWidget {
             border: Border.all(width: 1, color: Colors.white24)),
         padding: EdgeInsets.all(4),
         child: SvgPicture.asset(
-          'assets/images/weixin.svg',
+          this.path,
           color: Colors.white,
         ));
   }
