@@ -18,14 +18,19 @@ class RadioSelect extends StatelessWidget {
           width: 14,
           height: 14,
           child: value
-              ? Icon(Icons.check_circle, color: Colors.white24, size: 14)
+              ? Icon(
+                  Icons.check_circle,
+                  color: Colors.white24,
+                  size: 14,
+                )
               : Container(
                   width: 14,
                   height: 14,
                   decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white24, width: 1)),
+                    color: Colors.transparent,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white24, width: 1),
+                  ),
                   child: null,
                 ),
         ),

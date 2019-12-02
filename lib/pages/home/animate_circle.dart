@@ -24,12 +24,22 @@ class _AnimatedCircle extends State<AnimatedCircle>
   void initState() {
     super.initState();
     controller = new AnimationController(
-        duration: Duration(milliseconds: animateDuration), vsync: this);
-    animation = Tween(begin: startScale, end: endScale).animate(controller);
+      duration: Duration(milliseconds: animateDuration),
+      vsync: this,
+    );
+    animation = Tween(
+      begin: startScale,
+      end: endScale,
+    ).animate(controller);
     if (widget.delay != 0) {
-      Timer(Duration(milliseconds: widget.delay), () {
-        controller.repeat();
-      });
+      Timer(
+        Duration(
+          milliseconds: widget.delay,
+        ),
+        () {
+          controller.repeat();
+        },
+      );
     } else {
       controller.repeat();
     }
@@ -43,18 +53,26 @@ class _AnimatedCircle extends State<AnimatedCircle>
       child: null,
       builder: (BuildContext ctx, Widget child) {
         final Matrix4 transform = Matrix4.identity()
-          ..scale(animation.value, animation.value, 1.0);
+          ..scale(
+            animation.value,
+            animation.value,
+            1.0,
+          );
         return Transform(
           transform: transform,
           alignment: Alignment.center,
           child: Container(
-              width: 400,
-              height: 400,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border:
-                      Border.all(width: 1, color: Colors.redAccent).scale(1.0)),
-              child: child),
+            width: 400,
+            height: 400,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                width: 1,
+                color: Colors.redAccent,
+              ).scale(1.0),
+            ),
+            child: child,
+          ),
         );
       },
     );

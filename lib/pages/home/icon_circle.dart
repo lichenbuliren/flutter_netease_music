@@ -9,15 +9,20 @@ class IconCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: 1, color: Colors.white24)),
-        padding: EdgeInsets.all(4),
-        child: SvgPicture.asset(
-          this.path,
-          color: Colors.white,
-        ));
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          width: 1,
+          color: Colors.white24,
+        ),
+      ),
+      padding: EdgeInsets.all(4),
+      child: SvgPicture.asset(
+        this.path,
+        color: Colors.white,
+      ),
+    );
   }
 }

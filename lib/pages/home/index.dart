@@ -21,56 +21,60 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void showWarning() {
-    Toast.show("请先勾选《服务条款》\n《隐私政策》《儿童隐私政策》", context,
-        duration: Toast.LENGTH_LONG,
-        gravity: Toast.CENTER,
-        backgroundRadius: 10);
+    Toast.show(
+      "请先勾选《服务条款》\n《隐私政策》《儿童隐私政策》",
+      context,
+      duration: Toast.LENGTH_LONG,
+      gravity: Toast.CENTER,
+      backgroundRadius: 10,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = TextStyle(color: Colors.white60, fontSize: 12);
-    final TextStyle textStyle2 =
-        textStyle.merge(TextStyle(color: Colors.white));
+    final TextStyle textStyle2 = textStyle.merge(
+      TextStyle(color: Colors.white),
+    );
     return Scaffold(
-        body: Container(
-      color: Colors.red,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 600,
-            child: Center(
-              child: Stack(
-                children: <Widget>[
-                  Center(
-                    child: AnimatedCircle(),
-                  ),
-                  Center(
-                    child: AnimatedCircle(delay: 2000),
-                  ),
-                  Center(
-                    // 裁剪圆形
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        fit: BoxFit.cover,
-                        width: 80,
-                        height: 80,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        color: Colors.red,
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 600,
+              child: Center(
+                child: Stack(
                   children: <Widget>[
                     Center(
-                      child: RaisedButton(
+                      child: AnimatedCircle(),
+                    ),
+                    Center(
+                      child: AnimatedCircle(delay: 2000),
+                    ),
+                    Center(
+                      // 裁剪圆形
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          fit: BoxFit.cover,
+                          width: 80,
+                          height: 80,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Center(
+                        child: RaisedButton(
                           textColor: Colors.red,
                           color: Colors.white,
                           onPressed: () {
@@ -85,15 +89,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: Center(
                                   child: Text('手机号登录'),
                                 )),
-                          )),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Center(
-                      child: RaisedButton(
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Center(
+                        child: RaisedButton(
                           textColor: Colors.white,
                           color: Colors.transparent,
                           // 阴影偏移量
@@ -105,49 +110,52 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(40),
                             child: Container(
-                                width: 300,
-                                child: Center(
-                                  child: Text('立即体验'),
-                                )),
-                          )),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      IconCircle(path: 'assets/images/weixin.svg'),
-                      IconCircle(path: 'assets/images/qq.svg'),
+                              width: 300,
+                              child: Center(
+                                child: Text('立即体验'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(right: 4),
-                      child: RadioSelect(
-                        onChanged: (val) {
-                          setState(() {
-                            _agreement = !_agreement;
-                          });
-                        },
-                        value: _agreement,
-                      ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        IconCircle(path: 'assets/images/weixin.svg'),
+                        IconCircle(path: 'assets/images/qq.svg'),
+                      ],
                     ),
-                    Text('同意', style: textStyle),
-                    Text('《服务条款》', style: textStyle2),
-                    Text('《隐私政策》', style: textStyle2),
-                    Text('《儿童隐私政策》', style: textStyle2),
-                  ],
-                ),
-              ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(right: 4),
+                        child: RadioSelect(
+                          onChanged: (val) {
+                            setState(() {
+                              _agreement = !_agreement;
+                            });
+                          },
+                          value: _agreement,
+                        ),
+                      ),
+                      Text('同意', style: textStyle),
+                      Text('《服务条款》', style: textStyle2),
+                      Text('《隐私政策》', style: textStyle2),
+                      Text('《儿童隐私政策》', style: textStyle2),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
