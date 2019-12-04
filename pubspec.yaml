@@ -30,7 +30,7 @@ dependencies:
   # 网络请求
   dio: ^3.0.4
   flutter_svg: ^0.15.0
-  toast: ^0.1.5
+  oktoast: ^2.1.9
 
 dev_dependencies:
   flutter_test:
