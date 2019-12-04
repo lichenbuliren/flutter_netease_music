@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void showWarning() {
     Toast.show(
-      "请先勾选《服务条款》\n《隐私政策》《儿童隐私政策》",
+      "请先勾选《服务条款》《隐私政策》《儿童隐私政策》",
       context,
       duration: Toast.LENGTH_LONG,
       gravity: Toast.CENTER,
@@ -45,22 +45,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               height: 600,
               child: Center(
                 child: Stack(
+                  alignment: AlignmentDirectional.center,
                   children: <Widget>[
-                    Center(
-                      child: AnimatedCircle(),
-                    ),
-                    Center(
-                      child: AnimatedCircle(delay: 2000),
-                    ),
-                    Center(
-                      // 裁剪圆形
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/logo.png',
-                          fit: BoxFit.cover,
-                          width: 80,
-                          height: 80,
-                        ),
+                    AnimatedCircle(),
+                    AnimatedCircle(delay: 2000),
+                    ClipOval(
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        fit: BoxFit.cover,
+                        width: 80,
+                        height: 80,
                       ),
                     ),
                   ],
@@ -71,50 +65,41 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Column(
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Center(
-                        child: RaisedButton(
-                          textColor: Colors.red,
-                          color: Colors.white,
-                          onPressed: () {
-                            handlePhoneLogin();
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Container(
-                                width: 300,
-                                child: Center(
-                                  child: Text('手机号登录'),
-                                )),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                          child: RaisedButton(
+                            textColor: Colors.red,
+                            color: Colors.white,
+                            onPressed: () {
+                              handlePhoneLogin();
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text('手机号登录'),
                           ),
                         ),
                       ),
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Center(
-                        child: RaisedButton(
-                          textColor: Colors.white,
-                          color: Colors.transparent,
-                          // 阴影偏移量
-                          elevation: 0,
-                          onPressed: () => print('立即体验'),
-                          shape: RoundedRectangleBorder(
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                          child: RaisedButton(
+                            textColor: Colors.white,
+                            color: Colors.transparent,
+                            // 阴影偏移量
+                            elevation: 0,
+                            onPressed: () => print('立即体验'),
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(width: 1, color: Colors.white)),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Container(
-                              width: 300,
-                              child: Center(
-                                child: Text('立即体验'),
-                              ),
+                              side: BorderSide(width: 1, color: Colors.white),
                             ),
+                            child: Text('立即体验'),
                           ),
                         ),
                       ),
