@@ -18,6 +18,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (!_agreement) {
       return showWarning();
     }
+
+    Navigator.pushNamed(context, '/login');
   }
 
   void showWarning() {

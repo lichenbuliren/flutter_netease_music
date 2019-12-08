@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_music/pages/home/index.dart';
+import 'package:flutter_netease_music/pages/login_register.dart';
+import 'package:flutter_netease_music/pages/splash_screen.dart';
 
-final Map<String, Widget Function(BuildContext)> routes = {
+final Map<String, WidgetBuilder> routes = {
   '/home': (context) => HomePage(),
+  '/login': (context) => LoginRegisterPage(),
+  '/': (context) => SplashScreen(),
 };
