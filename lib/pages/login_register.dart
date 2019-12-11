@@ -11,6 +11,8 @@ class LoginRegisterPage extends StatefulWidget {
 }
 
 class _LoginRegisterPageState extends State<LoginRegisterPage> {
+  bool phoneNumberEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +68,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                       child: TextField(
                         onChanged: (v) {
                           print(v);
+                          if (v.length == 11) {
+                            setState(() {
+                              phoneNumberEnabled = true;
+                            });
+                          }
                         },
                         style: TextStyle(
                           fontSize: 20,
@@ -90,12 +97,15 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               ),
             ),
             Container(
-              width: 300,
+              width: 600,
               decoration: BoxDecoration(
                 color: Colors.purple,
                 gradient: LinearGradient(
-                  colors: [Colors.lightBlue, Colors.blue],
-                  stops: [0.1, 1],
+                  colors: [
+                    Color(0xFFFFB7B3).withOpacity(0.5),
+                    Color(0xFFFFB7B3)
+                  ],
+                  stops: [0, 1],
                 ),
                 borderRadius: BorderRadius.all(
                   Radius.circular(30),
@@ -111,7 +121,13 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                   borderRadius: BorderRadius.circular(20),
                   side: BorderSide.none,
                 ),
-                child: Text('下一步'),
+                child: Text(
+                  '下一步',
+                  style: TextStyle(
+                    color:
+                        phoneNumberEnabled ? Colors.white : Color(0xEEEEEEEE),
+                  ),
+                ),
               ),
             ),
           ],
