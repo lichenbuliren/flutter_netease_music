@@ -10,13 +10,14 @@ class Http {
   Http._internal() {
     // 初始化
     if (_client != null) return;
-
+    print('http init');
     _client = new Dio(
       BaseOptions(
         baseUrl: 'http://localhost:3000',
         connectTimeout: 500,
         receiveTimeout: 2000,
         method: 'GET',
+        contentType: 'application/json; charset=utf-8',
       ),
     );
   }
@@ -28,6 +29,7 @@ class Http {
     } else {
       response = await _client.get(path, queryParameters: params);
     }
+    print(response.data);
     return response.data;
   }
 }
