@@ -1,4 +1,6 @@
 // 单例模式 Dio 类封装
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class Http {
@@ -10,7 +12,6 @@ class Http {
   Http._internal() {
     // 初始化
     if (_client != null) return;
-    print('http init');
     _client = new Dio(
       BaseOptions(
         baseUrl: 'http://localhost:3000',
@@ -29,7 +30,7 @@ class Http {
     } else {
       response = await _client.get(path, queryParameters: params);
     }
-    print(response.data);
+    print(json.encode(response.data));
     return response.data;
   }
 }
