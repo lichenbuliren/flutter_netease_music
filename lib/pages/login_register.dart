@@ -9,7 +9,21 @@ class LoginRegisterPage extends StatefulWidget {
 }
 
 class _LoginRegisterPageState extends State<LoginRegisterPage> {
+  final num maxInputLength = 11;
+
   bool phoneNumberEnabled = false;
+
+  TextEditingController phoneController = TextEditingController(text: '');
+
+  handleInputChange() {
+    setState(() {
+      phoneNumberEnabled = phoneController.value.text.length == maxInputLength;
+    });
+  }
+
+  handleClearPhone() {
+    phoneController.text = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,34 +75,61 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                     ),
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: TextField(
-                        onChanged: (v) {
-                          print(v);
-                          if (v.length == 11) {
-                            setState(() {
-                              phoneNumberEnabled = true;
-                            });
-                          }
-                        },
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                        cursorColor: Color(0xFF777777).withOpacity(0.8),
-                        keyboardType: TextInputType.phone,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          enabledBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          focusColor: Colors.black54,
-                          hintText: '输入手机号',
-                          hintStyle: TextStyle(
-                            fontSize: 20,
+                    child: Stack(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: TextField(
+                            onChanged: (v) {
+                              handleInputChange();
+                            },
+                            controller: phoneController,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                            maxLengthEnforced: true,
+                            cursorColor: Color(0xFF777777).withOpacity(0.8),
+                            // 电话号码键盘
+                            keyboardType: TextInputType.phone,
+                            // 只允许输入数字
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly,
+                              // 最多允许 11 位的电话号码
+                              LengthLimitingTextInputFormatter(maxInputLength),
+                            ],
+                            textInputAction: TextInputAction.done,
+                            decoration: InputDecoration(
+                              enabledBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              border: InputBorder.none,
+                              focusColor: Colors.black54,
+                              hintText: '输入手机号',
+                              hintStyle: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          top: 0,
+                          child: phoneNumberEnabled
+                              ? Align(
+                                  child: InkWell(
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 20,
+                                    ),
+                                    onTap: () {
+                                      handleClearPhone();
+                                    },
+                                  ),
+                                  alignment: Alignment.center,
+                                )
+                              : Container(),
+                        ),
+                      ],
                     ),
                   ),
                 ],
