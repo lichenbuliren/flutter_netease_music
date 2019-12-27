@@ -61,7 +61,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                 border: Border(
                   bottom: BorderSide(
                     width: 0.5,
-                    color: Color(0xFFBBBBBBB),
+                    color: Colors.black12,
                   ),
                 ),
               ),
@@ -156,7 +156,11 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                 color: Colors.transparent,
                 // 阴影偏移量
                 elevation: 0,
+                // 取消按压事件下的灰色投影
+                highlightElevation: 0,
                 onPressed: () => print('下一步'),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                   side: BorderSide.none,

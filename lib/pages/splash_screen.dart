@@ -8,10 +8,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var counter = 3;
+  final num duration = 3;
   Timer timer;
 
   void countDown() {
-    timer = new Timer(new Duration(seconds: 1), () {
+    timer = Timer(Duration(seconds: duration), () {
       if (counter != 1) {
         setState(() {
           counter = counter - 1;
@@ -45,17 +46,17 @@ class _SplashScreenState extends State<SplashScreen> {
     // It will hide status bar and notch.
     // SystemChrome.setEnabledSystemUIOverlays([]);
     return Stack(children: <Widget>[
-      new Container(
+      Container(
         color: Colors.red,
-        child: new Image.asset('assets/images/splash.jpg', fit: BoxFit.fill),
+        child: Image.asset('assets/images/splash.jpg', fit: BoxFit.fill),
       ),
-      new Positioned(
+      Positioned(
         top: 20.0,
         right: 10.0,
-        child: new FlatButton(
-          child: new Text(
+        child: FlatButton(
+          child: Text(
             '跳过 $counter',
-            style: new TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
           color: Color.fromARGB(55, 0, 0, 0),
           onPressed: () {
