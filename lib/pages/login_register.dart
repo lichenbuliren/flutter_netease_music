@@ -15,14 +15,20 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
 
   TextEditingController phoneController = TextEditingController(text: '');
 
-  handleInputChange() {
+  void handleInputChange() {
     setState(() {
       phoneNumberEnabled = phoneController.value.text.length == maxInputLength;
     });
   }
 
-  handleClearPhone() {
+  void handleClearPhone() {
     phoneController.text = '';
+  }
+
+  void handleNextStep() {
+    Navigator.pushNamed(context, '/login_pwd', arguments: {
+      'phone': phoneController.value.text,
+    });
   }
 
   @override
@@ -98,7 +104,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                               // 最多允许 11 位的电话号码
                               LengthLimitingTextInputFormatter(maxInputLength),
                             ],
-                            textInputAction: TextInputAction.done,
+                            textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               enabledBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
@@ -158,7 +164,9 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
                 elevation: 0,
                 // 取消按压事件下的灰色投影
                 highlightElevation: 0,
-                onPressed: () => print('下一步'),
+                onPressed: () {
+                  handleNextStep();
+                },
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
