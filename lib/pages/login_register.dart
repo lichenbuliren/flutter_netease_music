@@ -33,6 +33,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
           '手机号登录',
           style: new TextStyle(color: Colors.black),
         ),
+        // 去除顶部下边框投影
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: new IconThemeData(color: Colors.black),
